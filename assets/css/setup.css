@@ -1,0 +1,10 @@
+:root {
+  --background: #f5f5f5;
+  --color-primary: #0e4ae2;
+  --textColor: #000;
+  --inputColor: #b1b9c2;
+}
+
+body {
+  background-color: var(--background);
+}

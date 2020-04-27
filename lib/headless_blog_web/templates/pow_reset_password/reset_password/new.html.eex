@@ -1,0 +1,25 @@
+<div class="w-full md-w-s md:max-w-lg">
+  <div class="flex flex-wrap -mx-3 mb-6 flex-col">
+    <div class="w-full px-8 pt-6 pb-4 mb-4">
+      <h1>Reset password</h1>
+    </div>
+    <%= form_for @changeset, @action, [as: :user, class: "px-8 pt-6 mb-4"], fn f -> %>
+      <%= if @changeset.action do %>
+        <div class="bg-red-100 border border-t-4 border-red-500 rounded-b text-red-900">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+
+      <div class="mb-4">
+        <%= label f, :email, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= text_input f, :email, class: "shadow apparence-none border rounded w-full px-3 py-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= error_tag f, :email %>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <%= submit "Submit", class: "bg-primary text-white py-2 px-8 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link("Sign In", to: Routes.pow_session_path(@conn, :new), class: "inline-block align-baseline font-bold text-gray-600 text-sm hover:text-primary") %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+.md-editor {
+  &__col {
+    @apply w-full h-full !important;
+  }
+
+  &__form,
+  &__preview {
+    flex: 1;
+  }
+}
+
+.md-editor__preview {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply font-bold text-lg pb-2;
+    line-height: 1.25;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  ol,
+  ul {
+    @apply py-4 px-6;
+  }
+
+  ul {
+    @apply list-disc;
+  }
+  ol {
+    @apply list-decimal;
+  }
+
+  // Paragraph Styles
+  p {
+    @apply mb-4 mt-4;
+  }
+
+  // preview styles
+  @apply p-8 overflow-y-auto;
+}
+
+.md-editor__header {
+  @apply flex flex-wrap;
+
+  &-title,
+  &-status {
+    flex: 1;
+  }
+
+  &-status {
+    @apply text-right p-4;
+  }
+
+  &-title > input {
+    @apply w-full h-full;
+  }
+}
+
+.md-editor__area {
+  @apply h-full;
+
+  textarea {
+    @apply w-full h-full p-6;
+  }
+}
+
+.phx-connected {
+  @apply h-full overflow-y-hidden;
+}

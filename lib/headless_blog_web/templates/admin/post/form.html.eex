@@ -1,0 +1,18 @@
+<%= form_for @changeset, "#", [phx_change: :render, phx_submit: :submit, class: "md-editor__form"] , fn f -> %>
+  <div class="md-editor__header">
+    <div class="md-editor__header-title">
+      <%= text_input f, :title, class: "py-3 bg-transparent px-4", placeholder: "Post Title" %>
+      <%= error_tag f, :title %>
+    </div>
+    <div class="md-editor__header-status">
+      <%= submit "Save", class: "btn btn-primary" %>
+    </div>
+  </div>
+  <div class="md-editor__area">
+    <%= textarea f, :content, placeholder: "Write Your content", class: "" %>
+  </div>
+<% end %>
+
+<div class="md-editor__preview">
+  <%= raw(@preview) %>
+</div>

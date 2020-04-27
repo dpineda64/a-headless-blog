@@ -1,0 +1,4 @@
+<div class="admin">
+    admin
+    <%= link "Go to Posts", to: Routes.post_path(@conn, :index) %>
+</div>

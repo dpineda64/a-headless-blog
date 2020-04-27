@@ -1,0 +1,7 @@
+export SECRET_KEY_BASE=
+export DB_USERNAME=
+export DB_PASSWORD=
+export DB_NAME=
+export DB_HOSTNAME=
+export LIVE_SALT=
+export PORT=
