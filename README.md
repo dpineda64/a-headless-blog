@@ -2,7 +2,7 @@
 
 Just trying out phoenix liveview by building a simple "Headless" blog that exposes an api and uses pow for authentication
 
-## To Do
+#### To Do
 
 - [x] Base Setup
   - [ ] Add status to posts
@@ -14,11 +14,11 @@ Just trying out phoenix liveview by building a simple "Headless" blog that expos
   - [ ] Show changeset errors
   - [ ] Auto save
 
-## Maybe
+#### Maybe
 
 - [ ] Authorization
 
-### Thanks to
+#### Thanks to
 
 - Heavily inspired by @nickdichev's [(markdown-live)](https://github.com/nickdichev/markdown-live)
 - this post [Creating A Liveview Form](https://foglitstreet.com/creating-a-liveview-form)
