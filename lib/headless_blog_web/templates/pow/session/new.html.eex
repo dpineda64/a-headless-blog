@@ -1,7 +1,7 @@
 <div class="w-full max-w-s md:max-w-lg">
   <div class="flex flex-wrap -mx-3 mb-6 flex-col">
     <div class="form__title w-full px-8 pt-6 pb-3 mb-4">
-      <h1>Sign in</h1>
+      <h1 class="text-3xl font-bold">Sign in</h1>
     </div>
     <%= if get_flash(@conn, :error) do %>
       <div class="px-8">
@@ -40,6 +40,17 @@
           to: Routes.pow_reset_password_reset_password_path(@conn, :new),
           class: "inline-block align-baseline font-bold text-sm text-gray-600 hover:text-blue-800"
         )%>
+      </div>
+      <div class="mt-16 text-center">
+        <%= if route_exists?(:pow_registration_path) do %>
+          <span class="font-light text-gray-600">
+            Don't have and account?
+          </span>
+          <%= link("Sign Up",
+            to: Routes.pow_registration_path(@conn, :new),
+            class: "inline-block align-baseline font-bold text-sm text-gray-600 hover:text-blue-800"
+          )%>
+        <% end %>
       </div>
     <% end %>
   </div>

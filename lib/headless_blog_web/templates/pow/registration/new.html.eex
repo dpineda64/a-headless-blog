@@ -1,31 +1,53 @@
-<h1>Register</h1>
-
-<%= form_for @changeset, @action, [as: :user], fn f -> %>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
+<div class="w-full max-w-s md:max-w-lg">
+  <div class="flex flex-wrap -mx-3 mb-6 flex-col">
+    <div class="form__title w-full pt-6 pb-3 mb-4">
+      <h1 class="text-3xl font-bold">Register</h1>
     </div>
-  <% end %>
-
-  <%= label f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-  <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
-
-  <%= label f, :username %>
-  <%= text_input f, :username %>
-
-  <%= label f, :password %>
-  <%= password_input f, :password %>
-  <%= error_tag f, :password %>
-
-  <%= label f, :password_confirmation %>
-  <%= password_input f, :password_confirmation %>
-  <%= error_tag f, :password_confirmation %>
-
-  <div>
-    <%= submit "Register" %>
+    <%= if get_flash(@conn, :error) do %>
+      <div class="px-8">
+        <div class="bg-red-100 border border-t-4 border-red-500 rounded-b text-red-900 px-4 py-3">
+          <%= get_flash(@conn, :error) %>
+        </div>
+      </div>
+    <% end %>
+    <%= form_for @changeset, @action, [as: :user], fn f -> %>
+     <%= if @changeset.action do %>
+        <div class="bg-red-100 border border-t-4 border-red-500 rounded-b text-red-900">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
+      <div class="mb-4">
+        <%= label f, Pow.Ecto.Schema.user_id_field(@changeset), class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= text_input f, Pow.Ecto.Schema.user_id_field(@changeset), autocomplete: "off", class: "input" %>
+        <p class="text-red-500 text-xs italic">
+          <%= error_tag f, Pow.Ecto.Schema.user_id_field(@changeset) %>
+        </p>
+      </div>
+      <div class="mb-4">
+        <%= label f, :username, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= text_input f, :username, class: "input" %>
+      </div>
+      <div class="mb-4">
+        <%= label f, :password, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= password_input f, :password, class: "input" %>
+        <p class="text-red-500 text-xs italic">
+          <%= error_tag f, :password %>
+        </p>
+      </div>
+      <div class="mb-4">
+        <%= label f, :password_confirmation, class: "block text-gray-700 text-sm font-bold mb-2" %>
+        <%= password_input f, :password_confirmation, class: "input" %>
+        <p class="text-red-500 text-xs italic">
+          <%= error_tag f, :password_confirmation %>
+        </p>
+      </div>
+      <div class="flex items-center justify-between">
+        <%= submit "Sign up", class: "bg-primary text-white py-2 px-8 rounded focus:outline-none focus:shadow-outline" %>
+        <%= link("Sign In",
+          to: Routes.pow_session_path(@conn, :new),
+          class: "inline-block align-baseline font-bold text-sm text-gray-600 hover:text-blue-800"
+        )%>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
-
-<span><%= link "Sign in", to: Routes.pow_session_path(@conn, :new) %></span>
+</div>
