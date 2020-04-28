@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :headless_blog,
-  ecto_repos: [HeadlessBlog.Repo]
+  ecto_repos: [HeadlessBlog.Repo],
+  enable_signups: true
 
 # Configures the endpoint
 config :headless_blog, HeadlessBlogWeb.Endpoint,

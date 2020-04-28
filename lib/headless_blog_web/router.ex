@@ -30,7 +30,7 @@ defmodule HeadlessBlogWeb.Router do
 
     get("/", HeadlessBlogWeb.Plugs.Redirector, to: "")
 
-    if !!System.get_env("ALLOW_SIGNUPS") do
+    if Application.get_env(:headless_blog, :enable_signups) do
       pow_routes()
     else
       pow_session_routes()
@@ -54,4 +54,7 @@ defmodule HeadlessBlogWeb.Router do
     pipe_through :api
     resources("/posts", Api.PostController, only: [:index, :show], param: "slug")
   end
+
+  # def auth_routes(enabled), do: pow_routes()
+  # def auth_routes(_), do: pow_session_routes()
 end
