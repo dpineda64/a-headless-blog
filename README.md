@@ -20,7 +20,7 @@ Just trying out phoenix liveview by building a simple "Headless" blog that expos
 
 #### Thanks to
 
-- Heavily inspired by @nickdichev's [(markdown-live)](https://github.com/nickdichev/markdown-live)
+- Heavily inspired by nickdichev's [(markdown-live)](https://github.com/nickdichev/markdown-live)
 - this post [Creating A Liveview Form](https://foglitstreet.com/creating-a-liveview-form)
 
 ---
