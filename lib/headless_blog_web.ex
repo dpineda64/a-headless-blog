@@ -45,6 +45,10 @@ defmodule HeadlessBlogWeb do
       import HeadlessBlogWeb.Gettext
       import HeadlessBlogWeb.Helpers.LinkHelper
       alias HeadlessBlogWeb.Router.Helpers, as: Routes
+
+      def route_exists?(path) do
+        Keyword.has_key?(Routes.__info__(:functions), path)
+      end
     end
   end
 

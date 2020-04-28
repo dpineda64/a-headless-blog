@@ -30,16 +30,17 @@ defmodule HeadlessBlogWeb.Router do
 
     get("/", HeadlessBlogWeb.Plugs.Redirector, to: "")
 
-    pow_session_routes()
+    if !!System.get_env("ALLOW_SIGNUPS") do
+      pow_routes()
+    else
+      pow_session_routes()
+    end
+
     pow_extension_routes()
   end
 
   scope "/", Pow.Phoenix, as: "pow" do
     pipe_through [:browser, :admin]
-
-    resources "/registration", RegistrationController,
-      singleton: true,
-      only: [:edit, :update, :delete]
   end
 
   scope "/admin", HeadlessBlogWeb do

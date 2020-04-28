@@ -25,6 +25,5 @@ defmodule HeadlessBlog.Accounts.Users.User do
     |> cast(attrs, @required_fields ++ @optional_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:email)
-    |> IO.inspect()
   end
 end
