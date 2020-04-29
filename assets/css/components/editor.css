@@ -52,6 +52,10 @@
     flex: 1;
   }
 
+  &-title {
+    @apply border-r-2;
+  }
+
   &-status {
     @apply text-right p-4;
   }
@@ -69,6 +73,6 @@
   }
 }
 
-.phx-connected {
-  @apply h-full overflow-y-hidden;
+main > div {
+  @apply h-full;
 }
