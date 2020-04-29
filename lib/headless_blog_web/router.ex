@@ -30,7 +30,7 @@ defmodule HeadlessBlogWeb.Router do
 
     get("/", HeadlessBlogWeb.Plugs.Redirector, to: "")
 
-    if !!System.get_env("ALLOW_SIGNUPS") do
+    if Application.get_env(:headless_blog, :enable_signups) do
       pow_routes()
     else
       pow_session_routes()
