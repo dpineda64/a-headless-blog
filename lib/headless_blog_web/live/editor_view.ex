@@ -16,7 +16,7 @@ defmodule HeadlessBlogWeb.EditorView do
     value = %{
       changeset: session.changeset,
       preview: content_md,
-      author: session.author_id,
+      author: session.author,
       action: action,
       post: get_post(session),
       errors: []
@@ -45,7 +45,7 @@ defmodule HeadlessBlogWeb.EditorView do
         %{assigns: %{author: author, action: action, post: prev_post}} = socket
       ) do
     post
-    |> Map.put_new("author_id", author)
+    |> Map.put_new("author", author)
     |> create_or_update(action, prev_post)
     |> case do
       {:ok, post} ->

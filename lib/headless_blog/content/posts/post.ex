@@ -20,7 +20,7 @@ defmodule HeadlessBlog.Content.Posts.Post do
     field(:title, :string)
     field(:properties, :map)
     field(:slug, :string)
-    field(:status, :string)
+    field(:status, :string, default: "draft")
 
     belongs_to(:author, User)
     many_to_many(:tags, Tag, join_through: PostTags)

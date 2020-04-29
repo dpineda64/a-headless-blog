@@ -16,7 +16,7 @@ defmodule HeadlessBlogWeb.Admin.PostController do
     LiveView.Controller.live_render(conn, HeadlessBlogWeb.EditorView,
       session: %{
         changeset: changeset,
-        author_id: Pow.Plug.current_user(conn).id
+        author: Pow.Plug.current_user(conn)
       }
     )
   end
@@ -47,7 +47,7 @@ defmodule HeadlessBlogWeb.Admin.PostController do
     LiveView.Controller.live_render(conn, HeadlessBlogWeb.EditorView,
       session: %{
         changeset: changeset,
-        author_id: post.author_id,
+        author: post.author,
         post: post
       }
     )
