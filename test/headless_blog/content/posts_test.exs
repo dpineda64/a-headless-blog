@@ -2,13 +2,31 @@ defmodule HeadlessBlog.Content.PostsTest do
   use HeadlessBlog.DataCase
 
   alias HeadlessBlog.Content.Posts
+  alias HeadlessBlog.Content.Posts.Post
 
   describe "posts" do
-    alias HeadlessBlog.Content.Posts.Post
+    import HeadlessBlog.Factory
 
-    @valid_attrs %{content: "some content", images: [], name: "some name", properties: %{}, slug: "some slug"}
-    @update_attrs %{content: "some updated content", images: [], name: "some updated name", properties: %{}, slug: "some updated slug"}
-    @invalid_attrs %{content: nil, images: nil, name: nil, properties: nil, slug: nil}
+    @valid_attrs %{
+      content: "some content",
+      images: [],
+      properties: %{},
+      status: "draft",
+      title: "Some Name",
+      author: build(:user)
+    }
+    @update_attrs %{
+      content: "some updated content",
+      images: [],
+      properties: %{}
+    }
+    @invalid_attrs %{
+      content: nil,
+      images: nil,
+      properties: nil,
+      slug: nil,
+      author: nil
+    }
 
     def post_fixture(attrs \\ %{}) do
       {:ok, post} =
@@ -20,22 +38,22 @@ defmodule HeadlessBlog.Content.PostsTest do
     end
 
     test "list_posts/0 returns all posts" do
-      post = post_fixture()
+      post = new_post()
       assert Posts.list_posts() == [post]
     end
 
     test "get_post!/1 returns the post with given id" do
-      post = post_fixture()
-      assert Posts.get_post!(post.id) == post
+      post = new_post()
+      assert Posts.get_post!(post.slug) == post
     end
 
     test "create_post/1 with valid data creates a post" do
       assert {:ok, %Post{} = post} = Posts.create_post(@valid_attrs)
       assert post.content == "some content"
       assert post.images == []
-      assert post.name == "some name"
+      assert post.title == "Some Name"
       assert post.properties == %{}
-      assert post.slug == "some slug"
+      assert post.slug == "some-name"
     end
 
     test "create_post/1 with invalid data returns error changeset" do
@@ -43,30 +61,32 @@ defmodule HeadlessBlog.Content.PostsTest do
     end
 
     test "update_post/2 with valid data updates the post" do
-      post = post_fixture()
+      post = new_post() |> Repo.preload(:author)
       assert {:ok, %Post{} = post} = Posts.update_post(post, @update_attrs)
       assert post.content == "some updated content"
       assert post.images == []
-      assert post.name == "some updated name"
       assert post.properties == %{}
-      assert post.slug == "some updated slug"
     end
 
     test "update_post/2 with invalid data returns error changeset" do
-      post = post_fixture()
+      post = new_post()
       assert {:error, %Ecto.Changeset{}} = Posts.update_post(post, @invalid_attrs)
-      assert post == Posts.get_post!(post.id)
+      assert post == Posts.get_post!(post.slug)
     end
 
     test "delete_post/1 deletes the post" do
-      post = post_fixture()
+      post = new_post()
       assert {:ok, %Post{}} = Posts.delete_post(post)
-      assert_raise Ecto.NoResultsError, fn -> Posts.get_post!(post.id) end
+      assert_raise Ecto.NoResultsError, fn -> Posts.get_post!(post.slug) end
     end
 
     test "change_post/1 returns a post changeset" do
       post = post_fixture()
       assert %Ecto.Changeset{} = Posts.change_post(post)
+    end
+
+    defp new_post(attrs \\ %{}) do
+      HeadlessBlog.UnPreload.forget(insert(:post, attrs), :author)
     end
   end
 end

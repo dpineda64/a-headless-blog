@@ -47,7 +47,8 @@ defmodule HeadlessBlog.MixProject do
       {:slugger, "~> 0.3"},
       {:phoenix_inline_svg, "~> 1.3"},
       {:phoenix_live_view, "~> 0.2.0"},
-      {:earmark, "~> 1.4"}
+      {:earmark, "~> 1.4"},
+      {:ex_machina, "~> 2.4", only: :test}
     ]
   end
 
