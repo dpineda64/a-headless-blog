@@ -5,7 +5,10 @@
       <%= error_tag f, :title %>
     </div>
     <div class="md-editor__header-status">
-      <%= submit "Save", class: "btn btn-primary" %>
+      <div class="px-5 inline-block uppercase text-sm font-bold text-gray-600">
+        <%= input_value f, :status %>
+      </div>
+      <%= submit "Save", class: "btn btn-primary", phx_disable_with: "Saving..." %>
     </div>
   </div>
   <div class="md-editor__area">
