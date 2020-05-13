@@ -5,7 +5,7 @@ Just trying out phoenix liveview by building a simple "Headless" blog that expos
 #### To Do
 
 - [x] Base Setup
-  - [ ] Add status to posts
+  - [x] Add status to posts
 - [x] Authentication
   - [ ] Confirmation Email
   - [ ] Persist Session
