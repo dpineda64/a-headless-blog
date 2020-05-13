@@ -19,7 +19,9 @@ defmodule HeadlessBlogWeb.EditorView do
       author: session.author,
       mode: action,
       post: get_post(session),
-      errors: []
+      errors: [],
+      # ToDo: improve this
+      available_status: [Draft: "draft", Published: "published"]
     }
 
     {:ok, assign(socket, value)}
