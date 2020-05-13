@@ -17,13 +17,19 @@ defmodule HeadlessBlog.Content.Posts do
       [%Post{}, ...]
 
   """
-  def list_posts do
-    Repo.all(Post)
+  def list_posts(critiria \\ %{}, opts \\ []) do
+    preloads = Keyword.get(opts, :preload, [])
+
+    from(p in Post)
+    |> build_query(critiria)
+    |> preload(^preloads)
+    |> Repo.all()
   end
 
-  def list_posts(preload: true) do
-    list_posts() |> Repo.preload([:author])
-  end
+  # def list_posts(opts \\ []) do
+
+  #   list_posts() |> Repo.preload()
+  # end
 
   @doc """
   Gets a single post.
@@ -39,9 +45,12 @@ defmodule HeadlessBlog.Content.Posts do
       ** (Ecto.NoResultsError)
 
   """
-  def get_post!(slug), do: Repo.get_by!(Post, %{slug: slug})
+  def get_post!(slug, opts \\ []) do
+    preloads = Keyword.get(opts, :preload, [])
 
-  def get_post!(slug, preload: true), do: get_post!(slug) |> Repo.preload([:author])
+    Repo.get_by!(Post, %{slug: slug})
+    |> Repo.preload(preloads)
+  end
 
   @doc """
   Creates a post.
@@ -58,6 +67,7 @@ defmodule HeadlessBlog.Content.Posts do
   def create_post(attrs \\ %{}) do
     %Post{}
     |> Post.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:author, Map.get(attrs, "author"))
     |> Repo.insert()
   end
 
@@ -106,5 +116,27 @@ defmodule HeadlessBlog.Content.Posts do
   """
   def change_post(%Post{} = post) do
     Post.changeset(post, %{})
+  end
+
+  defp build_query(query, critiria) do
+    critiria
+    |> Enum.reduce(query, fn
+      {:filter, filters}, query ->
+        filter_with(filters, query)
+
+      _, query ->
+        query
+    end)
+  end
+
+  defp filter_with(filters, query) do
+    Enum.reduce(filters, query, fn
+      {:status, status}, query ->
+        query
+        |> where([p], p.status == ^status)
+
+      _, query ->
+        query
+    end)
   end
 end

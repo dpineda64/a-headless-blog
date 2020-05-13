@@ -3,8 +3,8 @@ defmodule HeadlessBlog.Content.Posts.PostTags do
   import Ecto.Changeset
 
   schema "posts_tags" do
-    field :post_id, :id
-    field :tag_id, :id
+    field(:post_id, :id)
+    field(:tag_id, :id)
 
     timestamps()
   end

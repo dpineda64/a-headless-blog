@@ -11,15 +11,16 @@ defmodule HeadlessBlog.Content.Posts.Post do
     Posts.PostTags
   }
 
-  @required_fields ~w(title content author_id)a
+  @required_fields ~w(title content status)a
   @optional_fields ~w(images properties)a
 
   schema "posts" do
-    field :content, :string
-    field :images, {:array, :string}
-    field :title, :string
-    field :properties, :map
-    field :slug, :string
+    field(:content, :string)
+    field(:images, {:array, :string})
+    field(:title, :string)
+    field(:properties, :map)
+    field(:slug, :string)
+    field(:status, :string, default: "draft")
 
     belongs_to(:author, User)
     many_to_many(:tags, Tag, join_through: PostTags)
@@ -31,8 +32,8 @@ defmodule HeadlessBlog.Content.Posts.Post do
   def changeset(post, attrs) do
     post
     |> cast(attrs, @required_fields ++ @optional_fields)
-    |> validate_required(@required_fields)
     |> HeadlessBlog.Utils.build_slug()
+    |> validate_required(@required_fields)
     |> unique_constraint(:slug)
   end
 end

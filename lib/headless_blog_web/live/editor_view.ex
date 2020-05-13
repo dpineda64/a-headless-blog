@@ -16,10 +16,12 @@ defmodule HeadlessBlogWeb.EditorView do
     value = %{
       changeset: session.changeset,
       preview: content_md,
-      author: session.author_id,
-      action: action,
+      author: session.author,
+      mode: action,
       post: get_post(session),
-      errors: []
+      errors: [],
+      # ToDo: improve this
+      available_status: [Draft: "draft", Published: "published"]
     }
 
     {:ok, assign(socket, value)}
@@ -42,11 +44,11 @@ defmodule HeadlessBlogWeb.EditorView do
   def handle_event(
         "submit",
         %{"post" => post},
-        %{assigns: %{author: author, action: action, post: prev_post}} = socket
+        %{assigns: %{author: author, mode: mode, post: prev_post}} = socket
       ) do
     post
-    |> Map.put_new("author_id", author)
-    |> create_or_update(action, prev_post)
+    |> Map.put_new("author", author)
+    |> create_or_update(mode, prev_post)
     |> case do
       {:ok, post} ->
         {:stop,

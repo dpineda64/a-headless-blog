@@ -6,8 +6,23 @@ defmodule HeadlessBlog.Accounts.UsersTest do
   describe "users" do
     alias HeadlessBlog.Accounts.Users.User
 
-    @valid_attrs %{email: "some email", properties: %{}, username: "some username"}
-    @update_attrs %{email: "some updated email", properties: %{}, username: "some updated username"}
+    @test_email "test@test.com"
+    @uptest_email "test@test.com"
+
+    @valid_attrs %{
+      email: @test_email,
+      properties: %{},
+      username: "some username",
+      validation: true,
+      password: "test_pwd",
+      password_confirmation: "test_pwd"
+    }
+    @update_attrs %{
+      email: @uptest_email,
+      properties: %{},
+      username: "some updated username",
+      current_password: "test_pwd"
+    }
     @invalid_attrs %{email: nil, properties: nil, username: nil}
 
     def user_fixture(attrs \\ %{}) do
@@ -16,7 +31,7 @@ defmodule HeadlessBlog.Accounts.UsersTest do
         |> Enum.into(@valid_attrs)
         |> Users.create_user()
 
-      user
+      %{user | password: nil}
     end
 
     test "list_users/0 returns all users" do
@@ -31,7 +46,7 @@ defmodule HeadlessBlog.Accounts.UsersTest do
 
     test "create_user/1 with valid data creates a user" do
       assert {:ok, %User{} = user} = Users.create_user(@valid_attrs)
-      assert user.email == "some email"
+      assert user.email == @test_email
       assert user.properties == %{}
       assert user.username == "some username"
     end
@@ -43,7 +58,7 @@ defmodule HeadlessBlog.Accounts.UsersTest do
     test "update_user/2 with valid data updates the user" do
       user = user_fixture()
       assert {:ok, %User{} = user} = Users.update_user(user, @update_attrs)
-      assert user.email == "some updated email"
+      assert user.email == @uptest_email
       assert user.properties == %{}
       assert user.username == "some updated username"
     end
